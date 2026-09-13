@@ -1,0 +1,2371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BuildX 48 — 48 Hours. Build What's Next.</title>
+  <meta name="description" content="BuildX 48 is an open-to-all 48-hour online hackathon bringing students and working professionals together to transform bold ideas into meaningful technology solutions.">
+  <meta name="keywords" content="Hackathon, BuildX 48, Online Hackathon, AI, Web Development, Healthcare, Sustainability, Smart Cities, Coding Competition">
+  <meta name="author" content="BuildX 48 Team">
+  
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:title" content="BuildX 48 — 48 Hours. Build What's Next.">
+  <meta property="og:description" content="Join students & professionals in a 48-hour online build challenge. Free registration. 19-21 Sept 2026.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://buildx48.tech">
+  <meta property="og:image" content="https://buildx48.tech/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+  <!-- Google Fonts: Space Grotesk & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+  <!-- Bootstrap Icons CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <style>
+    /* ==========================================================================
+       BUILDX 48 DESIGN SYSTEM & VARIABLES
+       ========================================================================== */
+    :root {
+      --bg-dark: #090E17;
+      --bg-surface: #0E1626;
+      --bg-surface-elevated: #131E33;
+      --primary-blue: #008CFF;
+      --primary-blue-glow: rgba(0, 140, 255, 0.4);
+      --accent-cyan: #00E5FF;
+      --accent-cyan-glow: rgba(0, 229, 255, 0.3);
+      --text-white: #FFFFFF;
+      --text-muted: #CBD5E1; /* Brighter high-contrast color for crisp readability */
+      --text-light-muted: #E2E8F0;
+      --border-thin: rgba(0, 140, 255, 0.22);
+      --border-glow: rgba(0, 140, 255, 0.55);
+      --glass-bg: rgba(14, 22, 38, 0.75);
+      --glass-bg-hover: rgba(19, 30, 51, 0.9);
+      --card-radius: 16px;
+      --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      --font-heading: 'Space Grotesk', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* Base Reset & Global Styles */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      cursor: default;
+    }
+
+    /* FIX FOR PARAGRAPH TEXT VISIBILITY */
+    p, .text-muted {
+      color: var(--text-muted) !important;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+
+    .text-light-muted {
+      color: var(--text-light-muted) !important;
+    }
+
+    /* Typography Defaults */
+    h1, h2, h3, h4, h5, h6, .font-heading {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-white);
+    }
+
+    /* Selection & Scrollbar */
+    ::selection {
+      background: var(--primary-blue);
+      color: #fff;
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-dark);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1B2A4A;
+      border-radius: 5px;
+      border: 2px solid var(--bg-dark);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--primary-blue);
+    }
+
+    /* ==========================================================================
+       CUSTOM FUTURISTIC GLOWING CURSOR ANIMATION
+       ========================================================================== */
+    .custom-cursor-dot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 8px;
+      height: 8px;
+      background-color: #00E5FF;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 10px #00E5FF, 0 0 20px #008CFF;
+      transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
+    }
+
+    .custom-cursor-follower {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid rgba(0, 140, 255, 0.6);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.12s cubic-bezier(0.1, 1, 0.1, 1), width 0.25s ease, height 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+      box-shadow: 0 0 15px rgba(0, 140, 255, 0.25);
+    }
+
+    body.cursor-hover .custom-cursor-dot {
+      width: 12px;
+      height: 12px;
+      background-color: #008CFF;
+      box-shadow: 0 0 15px #008CFF, 0 0 30px #00E5FF;
+    }
+
+    body.cursor-hover .custom-cursor-follower {
+      width: 56px;
+      height: 56px;
+      border-color: rgba(0, 229, 255, 0.9);
+      background-color: rgba(0, 140, 255, 0.12);
+      box-shadow: 0 0 25px rgba(0, 229, 255, 0.4);
+    }
+
+    @media (max-width: 991px) {
+      .custom-cursor-dot, .custom-cursor-follower {
+        display: none !important;
+      }
+    }
+
+    /* Gradient Text Utilities & Shimmer Animation */
+    @keyframes gradientTextShimmer {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .text-gradient {
+      background: linear-gradient(135deg, #FFFFFF 0%, #00E5FF 50%, #008CFF 100%);
+      background-size: 200% 200%;
+      animation: gradientTextShimmer 6s ease infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .text-gradient-cyan {
+      background: linear-gradient(135deg, #00E5FF 0%, #008CFF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .text-primary-blue {
+      color: var(--primary-blue) !important;
+    }
+
+    /* Glow Effects */
+    .glow-box-blue {
+      box-shadow: 0 0 25px var(--primary-blue-glow);
+    }
+
+    .glow-text-blue {
+      text-shadow: 0 0 15px rgba(0, 140, 255, 0.8);
+    }
+
+    /* Glassmorphism Card Style */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-thin);
+      border-radius: var(--card-radius);
+      transition: var(--transition-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0, 140, 255, 0.4), transparent);
+    }
+
+    .glass-card:hover {
+      background: var(--glass-bg-hover);
+      border-color: var(--border-glow);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 140, 255, 0.18);
+    }
+
+    /* Section Padding & Dividers */
+    section {
+      padding: 100px 0;
+      position: relative;
+    }
+
+    @media (max-width: 768px) {
+      section {
+        padding: 60px 0;
+      }
+    }
+
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 50px;
+      background: rgba(0, 140, 255, 0.12);
+      border: 1px solid rgba(0, 140, 255, 0.35);
+      color: var(--accent-cyan);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      box-shadow: 0 0 15px rgba(0, 140, 255, 0.2);
+    }
+
+    .section-title {
+      font-size: 2.75rem;
+      margin-bottom: 20px;
+      line-height: 1.15;
+    }
+
+    @media (max-width: 768px) {
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+
+    .section-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto 50px auto;
+    }
+
+    /* Button Styling */
+    .btn-buildx-primary {
+      background: linear-gradient(135deg, #008CFF 0%, #0056B3 100%);
+      color: #FFFFFF;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 50px;
+      border: none;
+      box-shadow: 0 4px 20px var(--primary-blue-glow);
+      transition: var(--transition-smooth);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-buildx-primary::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(60deg, transparent, rgba(255,255,255,0.25), transparent);
+      transform: rotate(30deg) translateY(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .btn-buildx-primary:hover::after {
+      transform: rotate(30deg) translateY(100%);
+    }
+
+    .btn-buildx-primary:hover {
+      background: linear-gradient(135deg, #1AA3FF 0%, #0070E0 100%);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 140, 255, 0.6);
+    }
+
+    .btn-buildx-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-white);
+      font-family: var(--font-heading);
+      font-weight: 600;
+      padding: 14px 32px;
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      transition: var(--transition-smooth);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-buildx-secondary:hover {
+      background: rgba(0, 140, 255, 0.18);
+      border-color: var(--primary-blue);
+      color: var(--text-white);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0, 140, 255, 0.25);
+    }
+
+    /* Scroll Reveal Animation Classes */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==========================================================================
+       1. NAVBAR SECTION
+       ========================================================================== */
+    .navbar-buildx {
+      padding: 18px 0;
+      transition: var(--transition-smooth);
+      background: transparent;
+      z-index: 1030;
+    }
+
+    .navbar-buildx.scrolled {
+      background: rgba(9, 14, 23, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(0, 140, 255, 0.18);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    .navbar-brand-logo {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text-white);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-48-box {
+      background: linear-gradient(135deg, #008CFF, #00E5FF);
+      color: #090E17;
+      font-size: 1rem;
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 6px;
+      box-shadow: 0 0 14px rgba(0, 229, 255, 0.7);
+      display: inline-block;
+      line-height: 1.2;
+      animation: pulseBadge 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseBadge {
+      0% { box-shadow: 0 0 10px rgba(0, 229, 255, 0.5); }
+      100% { box-shadow: 0 0 20px rgba(0, 229, 255, 0.9), 0 0 30px rgba(0, 140, 255, 0.6); }
+    }
+
+    .nav-link-buildx {
+      color: var(--text-light-muted);
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 8px 16px !important;
+      transition: var(--transition-smooth);
+      position: relative;
+    }
+
+    .nav-link-buildx:hover,
+    .nav-link-buildx.active {
+      color: var(--accent-cyan);
+    }
+
+    .nav-link-buildx::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--accent-cyan);
+      transition: var(--transition-smooth);
+      transform: translateX(-50%);
+    }
+
+    .nav-link-buildx:hover::after,
+    .nav-link-buildx.active::after {
+      width: 60%;
+    }
+
+    .navbar-toggler {
+      border: 1px solid rgba(0, 140, 255, 0.4);
+      color: var(--text-white);
+      padding: 6px 12px;
+    }
+
+    .navbar-toggler:focus {
+      box-shadow: 0 0 10px var(--primary-blue-glow);
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    /* ==========================================================================
+       2. HOME / HERO SECTION ANIMATIONS
+       ========================================================================== */
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding-top: 140px;
+      padding-bottom: 90px;
+      overflow: hidden;
+    }
+
+    #hero-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Hero Floating Tech Elements */
+    .hero-float-badge {
+      position: absolute;
+      padding: 10px 18px;
+      background: rgba(14, 22, 38, 0.85);
+      border: 1px solid rgba(0, 229, 255, 0.35);
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 20px rgba(0, 140, 255, 0.2);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .float-badge-1 {
+      top: 22%;
+      left: 6%;
+      animation: floatSmooth 6s ease-in-out infinite alternate;
+    }
+
+    .float-badge-2 {
+      top: 28%;
+      right: 6%;
+      animation: floatSmooth 7s ease-in-out 1s infinite alternate-reverse;
+    }
+
+    .float-badge-3 {
+      bottom: 22%;
+      left: 10%;
+      animation: floatSmooth 8s ease-in-out 0.5s infinite alternate;
+    }
+
+    @keyframes floatSmooth {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(2deg); }
+      100% { transform: translateY(-30px) rotate(-2deg); }
+    }
+
+    @media (max-width: 991px) {
+      .hero-float-badge {
+        display: none;
+      }
+    }
+
+    .hero-title {
+      font-size: 5.5rem;
+      font-weight: 800;
+      line-height: 1.05;
+      margin-bottom: 16px;
+      letter-spacing: -0.03em;
+    }
+
+    @media (max-width: 992px) {
+      .hero-title {
+        font-size: 4rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero-title {
+        font-size: 3rem;
+      }
+    }
+
+    .hero-headline {
+      font-size: 2.3rem;
+      font-weight: 700;
+      color: var(--text-light-muted);
+      margin-bottom: 24px;
+      text-shadow: 0 2px 15px rgba(0,0,0,0.5);
+    }
+
+    @media (max-width: 768px) {
+      .hero-headline {
+        font-size: 1.7rem;
+      }
+    }
+
+    .hero-description {
+      font-size: 1.2rem;
+      color: #E2E8F0 !important; /* Brighter legible white-grey */
+      max-width: 740px;
+      margin: 0 auto 40px auto;
+      line-height: 1.7;
+    }
+
+    .info-badge-card {
+      background: rgba(14, 22, 38, 0.85);
+      border: 1px solid var(--border-thin);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      backdrop-filter: blur(14px);
+      transition: var(--transition-smooth);
+      height: 100%;
+    }
+
+    .info-badge-card:hover {
+      border-color: var(--accent-cyan);
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 10px 25px rgba(0, 229, 255, 0.2);
+    }
+
+    .info-badge-icon {
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+
+    .info-badge-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .info-badge-val {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-white);
+      font-family: var(--font-heading);
+    }
+
+    /* Ambient Radial Background Glows */
+    .bg-radial-glow-top {
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0, 140, 255, 0.25) 0%, rgba(9, 14, 23, 0) 70%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* ==========================================================================
+       3. COUNTDOWN SECTION
+       ========================================================================== */
+    .countdown-section {
+      background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-surface) 100%);
+      border-top: 1px solid var(--border-thin);
+      border-bottom: 1px solid var(--border-thin);
+      position: relative;
+    }
+
+    .countdown-box {
+      background: rgba(9, 14, 23, 0.8);
+      border: 1px solid rgba(0, 140, 255, 0.35);
+      border-radius: 20px;
+      padding: 40px 20px;
+      box-shadow: 0 0 40px rgba(0, 140, 255, 0.15);
+      backdrop-filter: blur(16px);
+    }
+
+    .timer-unit {
+      text-align: center;
+      padding: 10px;
+    }
+
+    .timer-number {
+      font-family: var(--font-heading);
+      font-size: 4rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      text-shadow: 0 0 20px rgba(0, 229, 255, 0.8);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .timer-number {
+        font-size: 2.5rem;
+      }
+    }
+
+    .timer-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent-cyan);
+    }
+
+    .timer-separator {
+      font-family: var(--font-heading);
+      font-size: 3rem;
+      font-weight: 700;
+      color: rgba(0, 229, 255, 0.6);
+      align-self: center;
+      padding-bottom: 20px;
+    }
+
+    @media (max-width: 576px) {
+      .timer-separator {
+        display: none;
+      }
+    }
+
+    /* ==========================================================================
+       4. ABOUT BUILDX 48
+       ========================================================================== */
+    .feature-num-badge {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--accent-cyan);
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+
+    .about-highlight-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 140, 255, 0.1);
+      border: 1px solid rgba(0, 140, 255, 0.25);
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      color: var(--text-light-muted) !important;
+      margin: 6px;
+    }
+
+    .about-highlight-pill i {
+      color: var(--accent-cyan);
+    }
+
+    /* ==========================================================================
+       5. DOMAINS SECTION
+       ========================================================================== */
+    .domain-card {
+      height: 100%;
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .domain-icon-box {
+      width: 65px;
+      height: 65px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(0, 140, 255, 0.25), rgba(0, 229, 255, 0.08));
+      border: 1px solid rgba(0, 140, 255, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--accent-cyan);
+      margin-bottom: 24px;
+      transition: var(--transition-smooth);
+    }
+
+    .domain-card:hover .domain-icon-box {
+      transform: scale(1.12) rotate(4deg);
+      box-shadow: 0 0 25px rgba(0, 229, 255, 0.5);
+      background: linear-gradient(135deg, rgba(0, 140, 255, 0.5), rgba(0, 229, 255, 0.25));
+    }
+
+    .domain-title {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+
+    /* ==========================================================================
+       6. PROBLEM STATEMENTS SECTION
+       ========================================================================== */
+    .problem-card {
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+
+    .problem-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .problem-num {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .problem-tag {
+      background: rgba(0, 229, 255, 0.12);
+      border: 1px solid rgba(0, 229, 255, 0.35);
+      color: var(--accent-cyan);
+      font-size: 0.85rem;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-weight: 700;
+    }
+
+    .problem-title {
+      font-size: 1.55rem;
+      margin-bottom: 14px;
+    }
+
+    .workflow-bar {
+      background: rgba(14, 22, 38, 0.95);
+      border: 1px solid rgba(0, 140, 255, 0.35);
+      border-radius: 50px;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 40px;
+      box-shadow: 0 0 35px rgba(0, 140, 255, 0.15);
+    }
+
+    .workflow-step {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text-white);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .workflow-arrow {
+      color: var(--accent-cyan);
+      font-size: 1.2rem;
+    }
+
+    /* ==========================================================================
+       7. TIMELINE SECTION
+       ========================================================================== */
+    .timeline-container {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: linear-gradient(180deg, rgba(0, 140, 255, 0.1), var(--accent-cyan), rgba(0, 140, 255, 0.1));
+      transform: translateX(-50%);
+    }
+
+    @media (max-width: 768px) {
+      .timeline-container::before {
+        left: 20px;
+      }
+    }
+
+    .timeline-item {
+      padding: 20px 0;
+      position: relative;
+      width: 50%;
+    }
+
+    .timeline-item.left {
+      left: 0;
+      padding-right: 40px;
+      text-align: right;
+    }
+
+    .timeline-item.right {
+      left: 50%;
+      padding-left: 40px;
+      text-align: left;
+    }
+
+    @media (max-width: 768px) {
+      .timeline-item {
+        width: 100%;
+        left: 0 !important;
+        padding-left: 50px !important;
+        padding-right: 0 !important;
+        text-align: left !important;
+      }
+    }
+
+    .timeline-dot {
+      position: absolute;
+      top: 30px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--bg-dark);
+      border: 3px solid var(--accent-cyan);
+      box-shadow: 0 0 15px var(--accent-cyan);
+      z-index: 2;
+    }
+
+    .timeline-item.left .timeline-dot {
+      right: -10px;
+    }
+
+    .timeline-item.right .timeline-dot {
+      left: -10px;
+    }
+
+    @media (max-width: 768px) {
+      .timeline-dot {
+        left: 10px !important;
+      }
+    }
+
+    .timeline-date-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: rgba(0, 140, 255, 0.18);
+      border: 1px solid rgba(0, 229, 255, 0.4);
+      color: var(--accent-cyan);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    /* ==========================================================================
+       8. CERTIFICATES SECTION
+       ========================================================================== */
+    .cert-card {
+      padding: 32px 24px;
+      text-align: center;
+      height: 100%;
+      border-top: 3px solid var(--primary-blue);
+    }
+
+    .cert-card.winner-1 {
+      border-top-color: #FFD700;
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+    }
+
+    .cert-card.winner-2 {
+      border-top-color: #E0E0E0;
+    }
+
+    .cert-card.winner-3 {
+      border-top-color: #CD7F32;
+    }
+
+    .cert-badge-icon {
+      font-size: 3.2rem;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+
+    .cert-title {
+      font-size: 1.45rem;
+      margin-bottom: 8px;
+    }
+
+    .cert-type {
+      color: var(--accent-cyan);
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+    }
+
+    .cert-all-card {
+      background: linear-gradient(135deg, rgba(14, 22, 38, 0.85), rgba(0, 140, 255, 0.15));
+      border: 1px dashed rgba(0, 229, 255, 0.5);
+      padding: 36px;
+      border-radius: var(--card-radius);
+      margin-top: 35px;
+    }
+
+    /* ==========================================================================
+       9. FAQ SECTION (BOOTSTRAP ACCORDION OVERRIDES)
+       ========================================================================== */
+    .accordion-buildx {
+      --bs-accordion-bg: transparent;
+      --bs-accordion-btn-bg: transparent;
+      --bs-accordion-border-color: rgba(0, 140, 255, 0.2);
+    }
+
+    .accordion-buildx .accordion-item {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-thin);
+      border-radius: 12px !important;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+
+    .accordion-buildx .accordion-button {
+      background: transparent;
+      color: var(--text-white);
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.15rem;
+      padding: 20px 24px;
+      box-shadow: none !important;
+    }
+
+    .accordion-buildx .accordion-button:not(.collapsed) {
+      color: var(--accent-cyan);
+      background: rgba(0, 140, 255, 0.12);
+      border-bottom: 1px solid rgba(0, 140, 255, 0.25);
+    }
+
+    .accordion-buildx .accordion-button::after {
+      filter: invert(1) sepia(1) saturate(5) hue-rotate(185deg);
+    }
+
+    .accordion-buildx .accordion-body {
+      color: var(--text-muted) !important;
+      padding: 20px 24px;
+      font-size: 1.02rem;
+      line-height: 1.7;
+    }
+
+    /* ==========================================================================
+       10. RULES & GUIDELINES SECTION
+       ========================================================================== */
+    .rule-card {
+      padding: 24px;
+      height: 100%;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .rule-num {
+      width: 42px;
+      height: 42px;
+      min-width: 42px;
+      border-radius: 10px;
+      background: rgba(0, 140, 255, 0.18);
+      border: 1px solid rgba(0, 229, 255, 0.4);
+      color: var(--accent-cyan);
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .rule-text {
+      color: var(--text-muted) !important;
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    /* ==========================================================================
+       11. FINAL CTA SECTION
+       ========================================================================== */
+    .cta-banner {
+      background: linear-gradient(135deg, rgba(14, 22, 38, 0.95), rgba(0, 140, 255, 0.22));
+      border: 1px solid var(--border-glow);
+      border-radius: 28px;
+      padding: 80px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 60px rgba(0, 140, 255, 0.2);
+    }
+
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(0, 229, 255, 0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .cta-title {
+      font-size: 3.5rem;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .cta-title {
+        font-size: 2.2rem;
+      }
+      .cta-banner {
+        padding: 50px 20px;
+      }
+    }
+
+    /* ==========================================================================
+       12. FOOTER
+       ========================================================================== */
+    .footer-buildx {
+      background: #05080E;
+      border-top: 1px solid var(--border-thin);
+      padding: 60px 0 30px 0;
+    }
+
+    .footer-link {
+      color: var(--text-muted) !important;
+      text-decoration: none;
+      transition: var(--transition-smooth);
+      font-size: 0.95rem;
+    }
+
+    .footer-link:hover {
+      color: var(--accent-cyan) !important;
+    }
+
+    /* ==========================================================================
+       REGISTER MODAL STYLING
+       ========================================================================== */
+    .modal-buildx .modal-content {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--card-radius);
+      color: var(--text-white);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 0 40px rgba(0, 140, 255, 0.35);
+    }
+
+    .modal-buildx .modal-header {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 24px 30px;
+    }
+
+    .modal-buildx .modal-body {
+      padding: 30px;
+    }
+
+    .modal-buildx .form-control,
+    .modal-buildx .form-select {
+      background: rgba(9, 14, 23, 0.85);
+      border: 1px solid rgba(0, 140, 255, 0.3);
+      color: var(--text-white);
+      padding: 12px 16px;
+      border-radius: 10px;
+    }
+
+    .modal-buildx .form-control:focus,
+    .modal-buildx .form-select:focus {
+      background: rgba(9, 14, 23, 0.98);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 14px rgba(0, 229, 255, 0.4);
+      color: var(--text-white);
+    }
+
+    .btn-close-white {
+      filter: invert(1) grayscale(100%) brightness(200%);
+    }
+
+    /* Accessibility: Reduced Motion Support */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal-on-scroll {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+      #hero-canvas, .custom-cursor-dot, .custom-cursor-follower {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Ambient Glow Top -->
+  <div class="bg-radial-glow-top"></div>
+
+  <!-- Dynamic Animated Hero Canvas -->
+  <canvas id="hero-canvas"></canvas>
+
+  <!-- Floating Hero Accent Badges -->
+  <div class="hero-float-badge float-badge-1">⚡ 48 Hours Live</div>
+  <div class="hero-float-badge float-badge-2">🚀 Build Prototypes</div>
+  <div class="hero-float-badge float-badge-3">🤖 AI & Innovation Tracks</div>
+
+  <!-- ==========================================================================
+       1. NAVBAR SECTION
+       ========================================================================== -->
+  <nav class="navbar navbar-expand-lg fixed-top navbar-buildx" id="mainNavbar">
+    <div class="container">
+      <a class="navbar-brand-logo" href="#home">
+        BUILDX <span class="badge-48-box">48</span>
+      </a>
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link nav-link-buildx active" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link nav-link-buildx" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link nav-link-buildx" href="#domains">Domains</a></li>
+          <li class="nav-item"><a class="nav-link nav-link-buildx" href="#problems">Problems</a></li>
+          <li class="nav-item"><a class="nav-link nav-link-buildx" href="#timeline">Timeline</a></li>
+          <li class="nav-item"><a class="nav-link nav-link-buildx" href="#certificates">Certificates</a></li>
+          <li class="nav-item"><a class="nav-link nav-link-buildx" href="#faq">FAQ</a></li>
+          <li class="nav-item"><a class="nav-link nav-link-buildx" href="#rules">Rules</a></li>
+        </ul>
+        <div class="d-flex align-items-center gap-3">
+          <button class="btn-buildx-primary" data-bs-toggle="modal" data-bs-target="#registerModal">
+            Register Now <i class="bi bi-arrow-right-short fs-5"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==========================================================================
+       2. HERO SECTION
+       ========================================================================== -->
+  <section class="hero-section" id="home">
+    <div class="container text-center hero-content">
+      
+      <!-- Small Badge -->
+      <div class="reveal-on-scroll">
+        <span class="section-badge">
+          ⚡ 48-HOUR ONLINE HACKATHON
+        </span>
+      </div>
+
+      <!-- Main Heading -->
+      <h1 class="hero-title text-gradient reveal-on-scroll">
+        BUILDX <span class="text-primary-blue glow-text-blue">48</span>
+      </h1>
+
+      <!-- Supporting Headline -->
+      <h2 class="hero-headline reveal-on-scroll">
+        48 Hours. Build What's Next.
+      </h2>
+
+      <!-- Supporting Text (FIXED PARAGRAPH VISIBILITY) -->
+      <p class="hero-description reveal-on-scroll">
+        “An open-to-all online hackathon bringing students and working professionals together to transform bold ideas into meaningful technology solutions.”
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="d-flex justify-content-center flex-wrap gap-3 mb-5 reveal-on-scroll">
+        <button class="btn-buildx-primary" data-bs-toggle="modal" data-bs-target="#registerModal">
+          <i class="bi bi-rocket-takeoff-fill"></i> Register Now
+        </button>
+        <a href="#problems" class="btn-buildx-secondary">
+          <i class="bi bi-compass"></i> Explore Challenges
+        </a>
+      </div>
+
+      <!-- Important Information Badges / Cards Grid -->
+      <div class="row g-3 justify-content-center max-w-900 mx-auto reveal-on-scroll">
+        <div class="col-6 col-md-3">
+          <div class="info-badge-card">
+            <div class="info-badge-icon">🌐</div>
+            <div class="text-start">
+              <span class="info-badge-label">Format</span>
+              <span class="info-badge-val">Online</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="info-badge-card">
+            <div class="info-badge-icon">⏱️</div>
+            <div class="text-start">
+              <span class="info-badge-label">Duration</span>
+              <span class="info-badge-val">48 Hours</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="info-badge-card">
+            <div class="info-badge-icon">👥</div>
+            <div class="text-start">
+              <span class="info-badge-label">Team Size</span>
+              <span class="info-badge-val">1–4 Members</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="info-badge-card">
+            <div class="info-badge-icon">💰</div>
+            <div class="text-start">
+              <span class="info-badge-label">Registration</span>
+              <span class="info-badge-val">Free (₹0)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       3. COUNTDOWN SECTION
+       ========================================================================== -->
+  <section class="countdown-section py-5" id="countdown">
+    <div class="container text-center">
+      
+      <div class="reveal-on-scroll mb-4">
+        <span class="section-badge">
+          <i class="bi bi-clock-history me-1"></i> HACKATHON TIMELINE
+        </span>
+        <h3 class="font-heading fs-2 text-gradient mb-1" id="countdown-status-heading">
+          THE CLOCK IS TICKING
+        </h3>
+        <p class="text-muted small">Target: 19 September 2026, 12:00 AM UTC</p>
+      </div>
+
+      <!-- Timer Counter Grid -->
+      <div class="countdown-box max-w-800 mx-auto reveal-on-scroll">
+        <div class="row align-items-center justify-content-center g-2" id="countdown-timer-container">
+          <div class="col-3 col-sm-2 timer-unit">
+            <div class="timer-number" id="days">00</div>
+            <div class="timer-label">DAYS</div>
+          </div>
+          <div class="col-auto timer-separator">:</div>
+          <div class="col-3 col-sm-2 timer-unit">
+            <div class="timer-number" id="hours">00</div>
+            <div class="timer-label">HOURS</div>
+          </div>
+          <div class="col-auto timer-separator">:</div>
+          <div class="col-3 col-sm-2 timer-unit">
+            <div class="timer-number" id="minutes">00</div>
+            <div class="timer-label">MINUTES</div>
+          </div>
+          <div class="col-auto timer-separator">:</div>
+          <div class="col-3 col-sm-2 timer-unit">
+            <div class="timer-number" id="seconds">00</div>
+            <div class="timer-label">SECONDS</div>
+          </div>
+        </div>
+
+        <!-- Banner shown after countdown ends -->
+        <div id="countdown-ended-msg" class="d-none py-3">
+          <h2 class="text-gradient font-heading fs-1 glow-text-blue">
+            BUILDX 48 HAS ENDED
+          </h2>
+          <p class="text-muted mb-0">Thank you to all participating teams for submitting incredible prototypes!</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       4. ABOUT BUILDX 48
+       ========================================================================== -->
+  <section id="about">
+    <div class="container">
+      <div class="text-center max-w-800 mx-auto reveal-on-scroll">
+        <span class="section-badge">ABOUT THE EVENT</span>
+        <h2 class="section-title text-gradient">Build. Innovate. Impact.</h2>
+        <p class="section-subtitle">
+          BuildX 48 is a high-intensity 48-hour online hackathon designed to unleash technical creativity. Whether you are a student exploring new stacks or a working professional building scalable prototypes, BuildX 48 provides the ultimate global stage.
+        </p>
+      </div>
+
+      <!-- Highlight Pills -->
+      <div class="d-flex justify-content-center flex-wrap gap-2 mb-5 reveal-on-scroll">
+        <span class="about-highlight-pill"><i class="bi bi-people-fill"></i> Open to everyone</span>
+        <span class="about-highlight-pill"><i class="bi bi-laptop-fill"></i> Online participation</span>
+        <span class="about-highlight-pill"><i class="bi bi-ticket-perferated-fill"></i> Free registration</span>
+        <span class="about-highlight-pill"><i class="bi bi-person-arms-up"></i> 1–4 member teams</span>
+        <span class="about-highlight-pill"><i class="bi bi-hourglass-split"></i> 48-hour build challenge</span>
+        <span class="about-highlight-pill"><i class="bi bi-bullseye"></i> Real-world problem solving</span>
+        <span class="about-highlight-pill"><i class="bi bi-cpu-fill"></i> Prototype-focused</span>
+      </div>
+
+      <!-- Feature Cards -->
+      <div class="row g-4 mt-2">
+        <div class="col-md-4 reveal-on-scroll">
+          <div class="glass-card p-4 h-100">
+            <span class="feature-num-badge">01</span>
+            <h3 class="font-heading fs-4 mb-3 text-white">BUILD</h3>
+            <p class="text-muted mb-0">
+              Turn ideas into working prototypes. Convert abstract concepts into live software, mobile apps, or hardware hacks within 48 continuous hours.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4 reveal-on-scroll">
+          <div class="glass-card p-4 h-100">
+            <span class="feature-num-badge">02</span>
+            <h3 class="font-heading fs-4 mb-3 text-white">INNOVATE</h3>
+            <p class="text-muted mb-0">
+              Explore technology across multiple domains. Leverage AI, web frameworks, cloud infrastructure, and modern SDKs to craft cutting-edge tech.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4 reveal-on-scroll">
+          <div class="glass-card p-4 h-100">
+            <span class="feature-num-badge">03</span>
+            <h3 class="font-heading fs-4 mb-3 text-white">IMPACT</h3>
+            <p class="text-muted mb-0">
+              Create solutions for meaningful real-world problems. Tackle challenges in education, healthcare, climate, civic tech, and open innovation.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       5. DOMAINS SECTION
+       ========================================================================== -->
+  <section id="domains" class="bg-surface-section py-5">
+    <div class="container py-4">
+      <div class="text-center reveal-on-scroll">
+        <span class="section-badge">TRACKS & CATEGORIES</span>
+        <h2 class="section-title text-gradient">Choose Your Challenge</h2>
+        <p class="section-subtitle">Select a domain that aligns with your passion and technological expertise.</p>
+      </div>
+
+      <div class="row g-4">
+        
+        <!-- Domain 1 -->
+        <div class="col-md-6 col-lg-4 reveal-on-scroll">
+          <div class="glass-card domain-card">
+            <div>
+              <div class="domain-icon-box">🤖</div>
+              <h3 class="domain-title">AI & Generative AI</h3>
+              <p class="text-muted">
+                Build intelligent solutions using AI, machine learning, deep learning models, LLMs, agents, and generative AI systems.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-top border-secondary border-opacity-25 d-flex justify-content-between align-items-center">
+              <span class="text-primary-blue small fw-bold">Track 01</span>
+              <i class="bi bi-arrow-right text-primary-blue"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Domain 2 -->
+        <div class="col-md-6 col-lg-4 reveal-on-scroll">
+          <div class="glass-card domain-card">
+            <div>
+              <div class="domain-icon-box">🏥</div>
+              <h3 class="domain-title">Healthcare</h3>
+              <p class="text-muted">
+                Build technology that improves healthcare access, mental wellness, patient awareness, telemedicine, or preventive care support.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-top border-secondary border-opacity-25 d-flex justify-content-between align-items-center">
+              <span class="text-primary-blue small fw-bold">Track 02</span>
+              <i class="bi bi-arrow-right text-primary-blue"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Domain 3 -->
+        <div class="col-md-6 col-lg-4 reveal-on-scroll">
+          <div class="glass-card domain-card">
+            <div>
+              <div class="domain-icon-box">🌱</div>
+              <h3 class="domain-title">Sustainability & Climate</h3>
+              <p class="text-muted">
+                Use technology to address environmental challenges, waste management, water conservation, energy efficiency, and climate impact.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-top border-secondary border-opacity-25 d-flex justify-content-between align-items-center">
+              <span class="text-primary-blue small fw-bold">Track 03</span>
+              <i class="bi bi-arrow-right text-primary-blue"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Domain 4 -->
+        <div class="col-md-6 col-lg-4 reveal-on-scroll">
+          <div class="glass-card domain-card">
+            <div>
+              <div class="domain-icon-box">🏙️</div>
+              <h3 class="domain-title">Smart Cities</h3>
+              <p class="text-muted">
+                Build solutions that improve urban transportation, public services, community safety, accessibility, and civic engagement.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-top border-secondary border-opacity-25 d-flex justify-content-between align-items-center">
+              <span class="text-primary-blue small fw-bold">Track 04</span>
+              <i class="bi bi-arrow-right text-primary-blue"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Domain 5 -->
+        <div class="col-md-6 col-lg-4 reveal-on-scroll">
+          <div class="glass-card domain-card">
+            <div>
+              <div class="domain-icon-box">💡</div>
+              <h3 class="domain-title">Open Innovation</h3>
+              <p class="text-muted">
+                Identify a meaningful real-world problem of your choice and build an innovative technology solution without track constraints.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-top border-secondary border-opacity-25 d-flex justify-content-between align-items-center">
+              <span class="text-primary-blue small fw-bold">Track 05</span>
+              <i class="bi bi-arrow-right text-primary-blue"></i>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       6. PROBLEM STATEMENTS SECTION
+       ========================================================================== -->
+  <section id="problems">
+    <div class="container">
+      <div class="text-center reveal-on-scroll">
+        <span class="section-badge">THE CHALLENGES</span>
+        <h2 class="section-title text-gradient">PROBLEM STATEMENTS</h2>
+        <p class="section-subtitle">“Choose a problem. Build a solution. Make an impact.”</p>
+      </div>
+
+      <div class="row g-4">
+        
+        <!-- Problem 01 -->
+        <div class="col-12 reveal-on-scroll">
+          <div class="glass-card problem-card">
+            <div class="problem-header">
+              <span class="problem-num"><i class="bi bi-bookmark-fill me-1"></i> PROBLEM 01</span>
+              <span class="problem-tag">AI & Education</span>
+            </div>
+            <h3 class="problem-title">AI-Driven Personalized Skill Gap Identification & Career Readiness</h3>
+            <p class="text-muted fs-6 mb-0">
+              <strong class="text-white">Problem statement:</strong> Build an AI-powered solution that helps students identify skill gaps, create personalized learning paths, and improve career readiness through interactive tools and analytics.
+            </p>
+          </div>
+        </div>
+
+        <!-- Problem 02 -->
+        <div class="col-12 reveal-on-scroll">
+          <div class="glass-card problem-card">
+            <div class="problem-header">
+              <span class="problem-num"><i class="bi bi-bookmark-fill me-1"></i> PROBLEM 02</span>
+              <span class="problem-tag">Healthcare & Wellness</span>
+            </div>
+            <h3 class="problem-title">Accessible Health Information & Timely Preventive-Care Platforms</h3>
+            <p class="text-muted fs-6 mb-0">
+              <strong class="text-white">Problem statement:</strong> Develop a technology solution that helps people access healthcare information, track personal wellness metrics, or receive timely preventive-care support and alerts.
+            </p>
+          </div>
+        </div>
+
+        <!-- Problem 03 -->
+        <div class="col-12 reveal-on-scroll">
+          <div class="glass-card problem-card">
+            <div class="problem-header">
+              <span class="problem-num"><i class="bi bi-bookmark-fill me-1"></i> PROBLEM 03</span>
+              <span class="problem-tag">Sustainability & Climate</span>
+            </div>
+            <h3 class="problem-title">Smart Environmental Resource & Carbon Reduction Systems</h3>
+            <p class="text-muted fs-6 mb-0">
+              <strong class="text-white">Problem statement:</strong> Create a solution that tackles real-world environmental challenges such as waste management, water conservation, energy efficiency, or carbon reduction in communities.
+            </p>
+          </div>
+        </div>
+
+        <!-- Problem 04 -->
+        <div class="col-12 reveal-on-scroll">
+          <div class="glass-card problem-card">
+            <div class="problem-header">
+              <span class="problem-num"><i class="bi bi-bookmark-fill me-1"></i> PROBLEM 04</span>
+              <span class="problem-tag">Smart Cities & Communities</span>
+            </div>
+            <h3 class="problem-title">Civic Engagement & Modern Urban Mobility Infrastructure</h3>
+            <p class="text-muted fs-6 mb-0">
+              <strong class="text-white">Problem statement:</strong> Build a solution that makes cities and communities smarter by improving transportation, public services, safety, accessibility, or civic engagement for citizens.
+            </p>
+          </div>
+        </div>
+
+        <!-- Problem 05 -->
+        <div class="col-12 reveal-on-scroll">
+          <div class="glass-card problem-card">
+            <div class="problem-header">
+              <span class="problem-num"><i class="bi bi-bookmark-fill me-1"></i> PROBLEM 05</span>
+              <span class="problem-tag">Open Innovation</span>
+            </div>
+            <h3 class="problem-title">Unrestricted Tech Prototype for Real-World Impact</h3>
+            <p class="text-muted fs-6 mb-0">
+              <strong class="text-white">Problem statement:</strong> Identify a meaningful real-world problem and build an innovative technology prototype using AI, web, mobile, cloud, IoT, or other emerging technologies.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Workflow Bar -->
+      <div class="workflow-bar reveal-on-scroll">
+        <div class="workflow-step">ONE ROUND</div>
+        <div class="workflow-arrow"><i class="bi bi-chevron-right"></i></div>
+        <div class="workflow-step">PROTOTYPE SUBMISSION</div>
+        <div class="workflow-arrow"><i class="bi bi-chevron-right"></i></div>
+        <div class="workflow-step">48 HOURS</div>
+        <div class="workflow-arrow"><i class="bi bi-chevron-right"></i></div>
+        <div class="workflow-step text-primary-blue">CERTIFICATE</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       7. TIMELINE SECTION
+       ========================================================================== -->
+  <section id="timeline" class="py-5">
+    <div class="container py-4">
+      <div class="text-center reveal-on-scroll">
+        <span class="section-badge">SCHEDULE</span>
+        <h2 class="section-title text-gradient">EVENT TIMELINE</h2>
+        <p class="section-subtitle">Follow the journey from initial registration to final certificate issuance.</p>
+      </div>
+
+      <div class="timeline-container mt-5">
+        
+        <!-- Step 1 -->
+        <div class="timeline-item left reveal-on-scroll">
+          <div class="timeline-dot"></div>
+          <div class="glass-card p-4">
+            <span class="timeline-date-badge">OPEN NOW</span>
+            <h4 class="fs-5 mb-2">Registration & Team Formation</h4>
+            <p class="text-muted small mb-0">Register your team (1-4 members) for free and select your domain.</p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="timeline-item right reveal-on-scroll">
+          <div class="timeline-dot"></div>
+          <div class="glass-card p-4">
+            <span class="timeline-date-badge">BEFORE START</span>
+            <h4 class="fs-5 mb-2">Challenge Selection</h4>
+            <p class="text-muted small mb-0">Review the official problem statements and prepare your development setup.</p>
+          </div>
+        </div>
+
+        <!-- Step 3 (HIGHLIGHT: Hackathon Begins) -->
+        <div class="timeline-item left reveal-on-scroll">
+          <div class="timeline-dot" style="border-color: #00E5FF; box-shadow: 0 0 20px #00E5FF;"></div>
+          <div class="glass-card p-4" style="border-color: rgba(0, 229, 255, 0.4);">
+            <span class="timeline-date-badge" style="background: rgba(0, 229, 255, 0.2); color: #00E5FF;">
+              19 SEP 2026 — 12:00 AM
+            </span>
+            <h4 class="fs-4 mb-2 text-white glow-text-blue">⚡ Hackathon Begins</h4>
+            <p class="text-muted small mb-0">The 48-hour build clock starts ticking! Hacking is live worldwide.</p>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="timeline-item right reveal-on-scroll">
+          <div class="timeline-dot"></div>
+          <div class="glass-card p-4">
+            <span class="timeline-date-badge">48-HOUR DURATION</span>
+            <h4 class="fs-5 mb-2">48-Hour Build Phase</h4>
+            <p class="text-muted small mb-0">Transform your concept into a fully functional technology prototype.</p>
+          </div>
+        </div>
+
+        <!-- Step 5 (HIGHLIGHT: Hackathon Ends) -->
+        <div class="timeline-item left reveal-on-scroll">
+          <div class="timeline-dot" style="border-color: #00E5FF; box-shadow: 0 0 20px #00E5FF;"></div>
+          <div class="glass-card p-4" style="border-color: rgba(0, 229, 255, 0.4);">
+            <span class="timeline-date-badge" style="background: rgba(0, 229, 255, 0.2); color: #00E5FF;">
+              21 SEP 2026 — 12:00 AM
+            </span>
+            <h4 class="fs-4 mb-2 text-white glow-text-blue">🏁 Hackathon Ends & Submission</h4>
+            <p class="text-muted small mb-0">Submit your working code repository, video demo, and project documentation.</p>
+          </div>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="timeline-item right reveal-on-scroll">
+          <div class="timeline-dot"></div>
+          <div class="glass-card p-4">
+            <span class="timeline-date-badge">POST-EVENT</span>
+            <h4 class="fs-5 mb-2">Evaluation & Results</h4>
+            <p class="text-muted small mb-0">Expert judges evaluate submissions based on innovation, functionality, and impact.</p>
+          </div>
+        </div>
+
+        <!-- Step 7 -->
+        <div class="timeline-item left reveal-on-scroll">
+          <div class="timeline-dot"></div>
+          <div class="glass-card p-4">
+            <span class="timeline-date-badge">FINAL STEP</span>
+            <h4 class="fs-5 mb-2">Certificates Distribution</h4>
+            <p class="text-muted small mb-0">Digital Winner and Participation Certificates are issued to all qualifying participants.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       8. CERTIFICATES SECTION
+       ========================================================================== -->
+  <section id="certificates" class="py-5">
+    <div class="container py-4">
+      <div class="text-center reveal-on-scroll">
+        <span class="section-badge">RECOGNITION</span>
+        <h2 class="section-title text-gradient">BUILD IT. EARN IT.</h2>
+        <p class="section-subtitle">Every participant who completes the hackathon journey earns official recognition for their hard work and innovation.</p>
+      </div>
+
+      <!-- Top 3 Winners Cards -->
+      <div class="row g-4 justify-content-center">
+        
+        <!-- 1st Place -->
+        <div class="col-md-4 reveal-on-scroll">
+          <div class="glass-card cert-card winner-1">
+            <div class="cert-badge-icon">🥇</div>
+            <h3 class="cert-title">FIRST PLACE</h3>
+            <div class="cert-type text-warning">Winner Certificate</div>
+            <p class="text-muted small mb-0">Awarded to the top-ranking team for exceptional technical innovation, design, and prototype execution.</p>
+          </div>
+        </div>
+
+        <!-- 2nd Place -->
+        <div class="col-md-4 reveal-on-scroll">
+          <div class="glass-card cert-card winner-2">
+            <div class="cert-badge-icon">🥈</div>
+            <h3 class="cert-title">SECOND PLACE</h3>
+            <div class="cert-type text-light">Runner-up Certificate</div>
+            <p class="text-muted small mb-0">Awarded to the second-place team demonstrating high impact and technical excellence.</p>
+          </div>
+        </div>
+
+        <!-- 3rd Place -->
+        <div class="col-md-4 reveal-on-scroll">
+          <div class="glass-card cert-card winner-3">
+            <div class="cert-badge-icon">🥉</div>
+            <h3 class="cert-title">THIRD PLACE</h3>
+            <div class="cert-type" style="color: #CD7F32;">Third Place Certificate</div>
+            <p class="text-muted small mb-0">Awarded to the third-place team demonstrating outstanding problem-solving capability.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- All Participants Card -->
+      <div class="cert-all-card text-center reveal-on-scroll">
+        <div class="fs-1 mb-2">📜</div>
+        <h3 class="font-heading fs-3 text-white mb-2">PARTICIPATION CERTIFICATES</h3>
+        <p class="text-light-muted max-w-700 mx-auto mb-0">
+          “Every participant who completes the hackathon journey receives a BuildX 48 participation certificate.”
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       9. FAQ SECTION
+       ========================================================================== -->
+  <section id="faq">
+    <div class="container">
+      <div class="text-center reveal-on-scroll">
+        <span class="section-badge">HELP CENTER</span>
+        <h2 class="section-title text-gradient">FREQUENTLY ASKED QUESTIONS</h2>
+        <p class="section-subtitle">Find quick answers to common questions about BuildX 48.</p>
+      </div>
+
+      <div class="max-w-900 mx-auto reveal-on-scroll">
+        <div class="accordion accordion-buildx" id="faqAccordion">
+          
+          <!-- FAQ 1 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faqHeading1">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1">
+                Who can participate?
+              </button>
+            </h2>
+            <div id="faqCollapse1" class="accordion-collapse collapse show" aria-labelledby="faqHeading1" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Students and working professionals can participate. Whether you are an undergraduate, postgraduate, self-taught developer, or industry engineer, you are welcome!
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 2 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faqHeading2">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+                Is BuildX 48 free?
+              </button>
+            </h2>
+            <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faqHeading2" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Yes. Registration is completely free (₹0) for all participants.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 3 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faqHeading3">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+                What is the team size?
+              </button>
+            </h2>
+            <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faqHeading3" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Teams can have 1 to 4 members. You can participate solo or collaborate in a team of up to 4 people.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 4 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faqHeading4">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
+                Is the hackathon online?
+              </button>
+            </h2>
+            <div id="faqCollapse4" class="accordion-collapse collapse" aria-labelledby="faqHeading4" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Yes. BuildX 48 is completely online, allowing participants to join and build from anywhere in the world.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 5 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faqHeading5">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse5" aria-expanded="false" aria-controls="faqCollapse5">
+                How long is the hackathon?
+              </button>
+            </h2>
+            <div id="faqCollapse5" class="accordion-collapse collapse" aria-labelledby="faqHeading5" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                The hackathon runs continuously for 48 hours, starting from 19 September 2026, 12:00 AM to 21 September 2026, 12:00 AM.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 6 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faqHeading6">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse6" aria-expanded="false" aria-controls="faqCollapse6">
+                What are the domains?
+              </button>
+            </h2>
+            <div id="faqCollapse6" class="accordion-collapse collapse" aria-labelledby="faqHeading6" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                The domains are: AI & Generative AI, Healthcare, Sustainability & Climate, Smart Cities, and Open Innovation.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 7 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faqHeading7">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse7" aria-expanded="false" aria-controls="faqCollapse7">
+                What do participants need to build?
+              </button>
+            </h2>
+            <div id="faqCollapse7" class="accordion-collapse collapse" aria-labelledby="faqHeading7" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Participants need to create a working technology prototype based on one of the provided challenges or an open innovation problem.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ 8 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faqHeading8">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse8" aria-expanded="false" aria-controls="faqCollapse8">
+                Will participants receive certificates?
+              </button>
+            </h2>
+            <div id="faqCollapse8" class="accordion-collapse collapse" aria-labelledby="faqHeading8" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Yes. Every participant who completes and submits a valid project receives a participation certificate, while the top three teams receive winner certificates.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       10. RULES & GUIDELINES SECTION
+       ========================================================================== -->
+  <section id="rules" class="py-5">
+    <div class="container py-4">
+      <div class="text-center reveal-on-scroll">
+        <span class="section-badge">GUIDELINES</span>
+        <h2 class="section-title text-gradient">RULES & REGULATIONS</h2>
+        <p class="section-subtitle">Please read through all official guidelines before registering.</p>
+      </div>
+
+      <div class="row g-4">
+        
+        <!-- Rule 1 -->
+        <div class="col-md-6 reveal-on-scroll">
+          <div class="glass-card rule-card">
+            <div class="rule-num">01</div>
+            <p class="rule-text">BuildX 48 is open to both students and working professionals.</p>
+          </div>
+        </div>
+
+        <!-- Rule 2 -->
+        <div class="col-md-6 reveal-on-scroll">
+          <div class="glass-card rule-card">
+            <div class="rule-num">02</div>
+            <p class="rule-text">Team size must strictly be between 1 and 4 members.</p>
+          </div>
+        </div>
+
+        <!-- Rule 3 -->
+        <div class="col-md-6 reveal-on-scroll">
+          <div class="glass-card rule-card">
+            <div class="rule-num">03</div>
+            <p class="rule-text">Registration is 100% free with no hidden fees or charges.</p>
+          </div>
+        </div>
+
+        <!-- Rule 4 -->
+        <div class="col-md-6 reveal-on-scroll">
+          <div class="glass-card rule-card">
+            <div class="rule-num">04</div>
+            <p class="rule-text">Participants must build their solution within the official 48-hour hackathon period.</p>
+          </div>
+        </div>
+
+        <!-- Rule 5 -->
+        <div class="col-md-6 reveal-on-scroll">
+          <div class="glass-card rule-card">
+            <div class="rule-num">05</div>
+            <p class="rule-text">Participants can select any eligible problem statement across listed tracks.</p>
+          </div>
+        </div>
+
+        <!-- Rule 6 -->
+        <div class="col-md-6 reveal-on-scroll">
+          <div class="glass-card rule-card">
+            <div class="rule-num">06</div>
+            <p class="rule-text">Teams should submit a functional technology prototype along with source code.</p>
+          </div>
+        </div>
+
+        <!-- Rule 7 -->
+        <div class="col-md-6 reveal-on-scroll">
+          <div class="glass-card rule-card">
+            <div class="rule-num">07</div>
+            <p class="rule-text">Solutions must be original work created by the participating team during the event.</p>
+          </div>
+        </div>
+
+        <!-- Rule 8 -->
+        <div class="col-md-6 reveal-on-scroll">
+          <div class="glass-card rule-card">
+            <div class="rule-num">08</div>
+            <p class="rule-text">Teams must follow all submission requirements and deadline specifications.</p>
+          </div>
+        </div>
+
+        <!-- Rule 9 -->
+        <div class="col-md-6 reveal-on-scroll">
+          <div class="glass-card rule-card">
+            <div class="rule-num">09</div>
+            <p class="rule-text">Any form of plagiarism or copied project submission will lead to immediate disqualification.</p>
+          </div>
+        </div>
+
+        <!-- Rule 10 -->
+        <div class="col-md-6 reveal-on-scroll">
+          <div class="glass-card rule-card">
+            <div class="rule-num">10</div>
+            <p class="rule-text">The organizers reserve the right to make final decisions regarding eligibility and results.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       11. FINAL CTA SECTION
+       ========================================================================== -->
+  <section class="py-5">
+    <div class="container">
+      <div class="cta-banner reveal-on-scroll">
+        <span class="section-badge mb-3">JOIN THE FUTURE OF INNOVATION</span>
+        <h2 class="cta-title font-heading text-gradient">
+          READY TO BUILD WHAT'S NEXT?
+        </h2>
+        <p class="text-light-muted fs-5 max-w-700 mx-auto mb-4">
+          “48 hours. One challenge. Your chance to build something that matters.”
+        </p>
+        
+        <div class="mb-4">
+          <button class="btn-buildx-primary fs-5 px-5 py-3" data-bs-toggle="modal" data-bs-target="#registerModal">
+            <i class="bi bi-lightning-charge-fill me-2"></i> Register Now
+          </button>
+        </div>
+
+        <div class="text-primary-blue small fw-bold tracking-wider">
+          FREE REGISTRATION • ONLINE • 1–4 MEMBERS
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       12. FOOTER
+       ========================================================================== -->
+  <footer class="footer-buildx">
+    <div class="container">
+      <div class="row g-4 align-items-center mb-4">
+        <div class="col-md-6 text-center text-md-start">
+          <a class="navbar-brand-logo mb-2 d-inline-block" href="#home">
+            BUILDX <span class="badge-48-box">48</span>
+          </a>
+          <p class="text-muted small mb-0">“48 Hours. Build What's Next.”</p>
+        </div>
+        <div class="col-md-6">
+          <div class="d-flex justify-content-center justify-content-md-end flex-wrap gap-3">
+            <a href="#about" class="footer-link">About</a>
+            <a href="#domains" class="footer-link">Domains</a>
+            <a href="#problems" class="footer-link">Problems</a>
+            <a href="#timeline" class="footer-link">Timeline</a>
+            <a href="#certificates" class="footer-link">Certificates</a>
+            <a href="#rules" class="footer-link">Rules</a>
+            <a href="#faq" class="footer-link">FAQ</a>
+          </div>
+        </div>
+      </div>
+
+      <hr class="border-secondary border-opacity-25 my-4">
+
+      <div class="text-center text-muted small">
+        © 2026 BuildX 48. All Rights Reserved. Built for innovators worldwide.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       INTERACTIVE REGISTRATION MODAL
+       ========================================================================== -->
+  <div class="modal fade modal-buildx" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title font-heading fs-4 text-white" id="registerModalLabel">
+            ⚡ Register for <span class="text-primary-blue">BuildX 48</span>
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="registrationForm" onsubmit="handleRegistrationSubmit(event)">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="teamName" class="form-label text-light-muted small fw-bold">Team Name</label>
+                <input type="text" class="form-control" id="teamName" placeholder="e.g. CyberX Innovators" required>
+              </div>
+              <div class="col-md-6">
+                <label for="leaderName" class="form-label text-light-muted small fw-bold">Team Leader Full Name</label>
+                <input type="text" class="form-control" id="leaderName" placeholder="e.g. Alex Johnson" required>
+              </div>
+              <div class="col-md-6">
+                <label for="leaderEmail" class="form-label text-light-muted small fw-bold">Leader Email Address</label>
+                <input type="email" class="form-control" id="leaderEmail" placeholder="alex@domain.com" required>
+              </div>
+              <div class="col-md-6">
+                <label for="teamSize" class="form-label text-light-muted small fw-bold">Team Size (1-4 Members)</label>
+                <select class="form-select" id="teamSize" required>
+                  <option value="1">1 Member (Solo Developer)</option>
+                  <option value="2">2 Members</option>
+                  <option value="3">3 Members</option>
+                  <option value="4" selected>4 Members</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="participantType" class="form-label text-light-muted small fw-bold">Participant Category</label>
+                <select class="form-select" id="participantType" required>
+                  <option value="student">Student</option>
+                  <option value="professional">Working Professional</option>
+                  <option value="mixed">Mixed Team (Students + Professionals)</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="trackInterest" class="form-label text-light-muted small fw-bold">Preferred Domain Track</label>
+                <select class="form-select" id="trackInterest" required>
+                  <option value="ai">🤖 AI & Generative AI</option>
+                  <option value="health">🏥 Healthcare</option>
+                  <option value="climate">🌱 Sustainability & Climate</option>
+                  <option value="cities">🏙️ Smart Cities</option>
+                  <option value="open">💡 Open Innovation</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="mt-4 p-3 rounded" style="background: rgba(0, 140, 255, 0.1); border: 1px solid rgba(0, 140, 255, 0.25);">
+              <div class="d-flex align-items-center gap-2 text-primary-blue small">
+                <i class="bi bi-check-circle-fill"></i>
+                <span>Free Registration (₹0) • Online • 19-21 September 2026</span>
+              </div>
+            </div>
+
+            <div class="mt-4 text-end">
+              <button type="button" class="btn btn-link text-muted me-2" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn-buildx-primary">
+                Complete Registration <i class="bi bi-check2-circle fs-5"></i>
+              </button>
+            </div>
+          </form>
+
+          <!-- Success Alert Container -->
+          <div id="regSuccessAlert" class="d-none text-center py-4">
+            <div class="fs-1 text-primary-blue mb-2"><i class="bi bi-patch-check-fill"></i></div>
+            <h4 class="font-heading text-white">Registration Successful!</h4>
+            <p class="text-muted small">Welcome to BuildX 48! Confirmation details have been sent to your email.</p>
+            <button class="btn-buildx-secondary mt-2" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 JavaScript Bundle CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+  <!-- Custom Embedded Vanilla JavaScript -->
+  <script>
+    // ==========================================================================
+    // 0. CUSTOM GLOWING CURSOR INITIALIZATION
+    // ==========================================================================
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.innerWidth > 991) {
+      const cursorDot = document.createElement('div');
+      cursorDot.className = 'custom-cursor-dot';
+      const cursorFollower = document.createElement('div');
+      cursorFollower.className = 'custom-cursor-follower';
+
+      document.body.appendChild(cursorDot);
+      document.body.appendChild(cursorFollower);
+
+      let mouseX = -100, mouseY = -100;
+      let followerX = -100, followerY = -100;
+
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursorDot.style.left = `${mouseX}px`;
+        cursorDot.style.top = `${mouseY}px`;
+      });
+
+      function animateCursor() {
+        followerX += (mouseX - followerX) * 0.15;
+        followerY += (mouseY - followerY) * 0.15;
+        cursorFollower.style.left = `${followerX}px`;
+        cursorFollower.style.top = `${followerY}px`;
+        requestAnimationFrame(animateCursor);
+      }
+      animateCursor();
+
+      const hoverTargets = 'a, button, input, select, .glass-card, .accordion-button, .info-badge-card';
+      document.querySelectorAll(hoverTargets).forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+      });
+    }
+
+    // ==========================================================================
+    // 1. HERO CANVAS ANIMATED BACKGROUND
+    // ==========================================================================
+    const canvas = document.getElementById('hero-canvas');
+    const ctx = canvas ? canvas.getContext('2d') : null;
+
+    let particles = [];
+    const particleCount = 50;
+
+    function resizeCanvas() {
+      if (!canvas) return;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2.5 + 1;
+        this.speedX = (Math.random() - 0.5) * 0.5;
+        this.speedY = (Math.random() - 0.5) * 0.5;
+        this.alpha = Math.random() * 0.6 + 0.2;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+          this.reset();
+        }
+      }
+
+      draw() {
+        ctx.save();
+        ctx.fillStyle = `rgba(0, 229, 255, ${this.alpha})`;
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = '#00E5FF';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function initCanvas() {
+      if (!canvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      resizeCanvas();
+      particles = [];
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+      animateCanvas();
+    }
+
+    function drawGridLines() {
+      const gridSize = 60;
+      ctx.strokeStyle = 'rgba(0, 140, 255, 0.05)';
+      ctx.lineWidth = 1;
+
+      for (let x = 0; x < canvas.width; x += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
+        ctx.stroke();
+      }
+
+      for (let y = 0; y < canvas.height; y += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
+        ctx.stroke();
+      }
+    }
+
+    function animateCanvas() {
+      if (!canvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawGridLines();
+
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+
+      requestAnimationFrame(animateCanvas);
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    document.addEventListener('DOMContentLoaded', initCanvas);
+
+    // ==========================================================================
+    // 2. LIVE COUNTDOWN TIMER
+    // Target: 19 September 2026, 12:00 AM UTC
+    // ==========================================================================
+    const targetDate = new Date('2026-09-19T00:00:00Z').getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const difference = targetDate - now;
+
+      const daysEl = document.getElementById('days');
+      const hoursEl = document.getElementById('hours');
+      const minutesEl = document.getElementById('minutes');
+      const secondsEl = document.getElementById('seconds');
+      const timerContainer = document.getElementById('countdown-timer-container');
+      const endedMsg = document.getElementById('countdown-ended-msg');
+      const statusHeading = document.getElementById('countdown-status-heading');
+
+      if (difference <= 0) {
+        if (timerContainer) timerContainer.classList.add('d-none');
+        if (endedMsg) endedMsg.classList.remove('d-none');
+        if (statusHeading) statusHeading.textContent = "EVENT COMPLETED";
+        return;
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
+      if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+      if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+      if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // ==========================================================================
+    // 3. NAVBAR SCROLL EFFECT & ACTIVE STATE
+    // ==========================================================================
+    const mainNavbar = document.getElementById('mainNavbar');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        mainNavbar.classList.add('scrolled');
+      } else {
+        mainNavbar.classList.remove('scrolled');
+      }
+    });
+
+    // Auto Collapse Mobile Nav Menu on Link Click
+    const navLinks = document.querySelectorAll('.nav-link-buildx');
+    const navbarCollapse = document.getElementById('navbarContent');
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+          const bsCollapse = new bootstrap.Collapse(navbarCollapse, { toggle: true });
+          bsCollapse.hide();
+        }
+      });
+    });
+
+    // ==========================================================================
+    // 4. SCROLL REVEAL ANIMATIONS (INTERSECTION OBSERVER)
+    // ==========================================================================
+    const observerOptions = {
+      root: null,
+      threshold: 0.12,
+      rootMargin: "0px"
+    };
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const elementsToReveal = document.querySelectorAll('.reveal-on-scroll');
+      elementsToReveal.forEach(el => revealObserver.observe(el));
+    });
+
+    // ==========================================================================
+    // 5. REGISTRATION FORM INTERACTION HANDLER
+    // ==========================================================================
+    function handleRegistrationSubmit(event) {
+      event.preventDefault();
+      const form = document.getElementById('registrationForm');
+      const successAlert = document.getElementById('regSuccessAlert');
+
+      if (form && successAlert) {
+        form.classList.add('d-none');
+        successAlert.classList.remove('d-none');
+      }
+    }
+  </script>
+</body>
+</html>
